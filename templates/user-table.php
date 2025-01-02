@@ -1,6 +1,4 @@
 <?php
-
-// Get filter inputs
 $search = $_GET['search'] ?? ''; // Search query
 $orderByField = $_GET['order_by'] ?? 'id'; // Order by field
 $orderDirection = $_GET['direction'] ?? 'ASC'; // Order direction (ASC/DESC)
@@ -16,12 +14,12 @@ $filter = !empty($search) ? "WHERE name LIKE '%" . $conn->real_escape_string($se
 $orderDirection = strtoupper($orderDirection) === 'DESC' ? 'DESC' : 'ASC';
 
 // Build query with filtering, ordering, and pagination
-$totalQuery = "SELECT COUNT(*) AS total FROM users $filter";
+$totalQuery = "SELECT COUNT(*) AS total FROM user $filter";
 $totalResult = $conn->query($totalQuery);
 $totalRecords = $totalResult->fetch_assoc()['total'];
 $totalPages = ceil($totalRecords / $limit);
 
-$sql = "SELECT * FROM users $filter ORDER BY $orderByField $orderDirection LIMIT $offset, $limit";
+$sql = "SELECT * FROM user $filter ORDER BY $orderByField $orderDirection LIMIT $offset, $limit";
 $result = $conn->query($sql);
 ?>
 
